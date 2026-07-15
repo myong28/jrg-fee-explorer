@@ -18,6 +18,14 @@ EFTSL-weighted increases, total movement), and the linear program does the rest.
 It is a single static file. Open `index.html` in a browser, or host it anywhere
 (GitHub Pages works as-is: Settings → Pages → deploy from branch → root).
 
+## Versioning
+
+The live page is v2 (July 2026): scenario cards with saveable custom scenarios
+(stored in the browser), grouped constraint sections with live outcome chips,
+$/% revenue bounds, a reorderable objectives list, and EFTSL bars. Superseded
+versions are kept unmodified under `archive/` (v1: `archive/v1/`). The current
+version is noted in the page footer.
+
 ## How it works
 
 - **Data** (baked in): 2026-indexed student and Commonwealth contribution schedules and
