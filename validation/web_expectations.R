@@ -1,29 +1,21 @@
 # Expected results for the web app's three presets, solved with lpSolve.
 # Mirrors the JS model exactly: no goal-seeking targets, lexicographic stages.
+# Reads the site's exact baked-in inputs (official 2026 statutory rates from
+# the Department of Education's "Indexed rates - amounts for 2026").
 
 library(data.table)
 library(lpSolve)
 
-base <- fread("/Users/myong/My Drive/1. Documents/1. Education/3. Research/Uni fee setting/CSHE_JRG_fee_optimization_working_paper_v3/data/baseline_inputs_27_2024q_2026sched.csv")
-setorder(base, group27)
-kappa <- 1.19981538462
-base[, Spre := S_2020 * kappa]
-base[, U0 := S0 + G0]
-base[, Upre := (S_2020 + G_2020) * kappa]
-base[, Ujrg := (S_2021 + G_2021) * kappa]
-base[, jrg_rev_pct := (Ujrg - Upre) / Upre]
-base[, protected := as.integer(group27 %in% c(10, 14, 17, 18, 22))]
+base <- fread("/Users/myong/My Drive/1. Documents/1. Education/3. Research/Uni fee setting/jrg-fee-explorer/validation/site_inputs_2026_statutory.csv")
+setorder(base, id)
+base[, jrg_rev_pct := jrgRevPct]
 
-# Paper per-field caps
-base[, cap := 14900]
-base[protected == 1, cap := S0]
-base[group27 == 9, cap := S0 * 1.05]
-base[group27 %in% c(2, 4, 5, 6, 8, 11, 12, 24, 25), cap := Spre]
-base[group27 %in% c(16, 21, 23, 26, 27), cap := 13900]
-base[group27 == 13, cap := 14700]
+# effective caps for the presets (paper caps on, default protections, no
+# single-increase cap): the CSV's paperCap already encodes the per-field rules
+base[, cap := pmin(14900, paperCap, U0)]
 
 K <- nrow(base)
-qm <- base$EFTSL0 / 1e6   # scale to $m
+qm <- base$q / 1e6   # scale to $m
 totG <- sum(qm * base$G0)
 totR <- sum(qm * base$U0)
 

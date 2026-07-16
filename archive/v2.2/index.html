@@ -144,7 +144,7 @@ details.adv summary { cursor: pointer; font-size: 13px; font-weight: 600; color:
 /* --- info hovers --- */
 .info { display: inline-flex; align-items: center; justify-content: center; width: 15px; height: 15px; flex: none;
   border-radius: 50%; border: 1px solid var(--faint); color: var(--ink-3); font-size: 10px; font-weight: 700;
-  font-style: normal; text-transform: none; cursor: help; position: relative; margin-left: 5px; transition: border-color .15s ease, color .15s ease; }
+  font-style: normal; cursor: help; position: relative; margin-left: 5px; transition: border-color .15s ease, color .15s ease; }
 .info:hover, .info:focus { border-color: var(--blue-500); color: var(--blue-600); }
 .info::after { content: attr(data-tip); position: absolute; left: 0; top: calc(100% + 7px); width: 250px;
   background: var(--surface); color: var(--ink-2); border: 1px solid var(--border); border-radius: 10px;
@@ -198,18 +198,12 @@ table.sched { width: 100%; border-collapse: collapse; font-size: 13px; font-vari
 table.sched th { text-align: right; padding: 8px 9px; border-bottom: 2px solid var(--border); color: var(--ink-3);
   font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; user-select: none; position: sticky; top: 0; background: var(--surface); }
 table.sched th:first-child { text-align: left; }
-table.sched td { text-align: right; padding: 5px 9px; border-bottom: 1px solid var(--grid); color: var(--ink-2); white-space: nowrap; }
-table.sched thead tr:first-child th { z-index: 2; }
-table.sched thead tr:nth-child(2) th { top: 36px; }
-table.sched th.hrow2 { vertical-align: bottom; }
-table.sched th.ghead { text-align: center; border-left: 1px solid var(--border); color: var(--ink-2); }
-table.sched th.gfirst, table.sched td.gfirst { border-left: 1px solid var(--grid); }
-table.sched th.gpad, table.sched td.gpad { width: 26px; min-width: 26px; }
+table.sched td { text-align: right; padding: 5px 9px; border-bottom: 1px solid var(--grid); color: var(--ink-2); }
 table.sched td:first-child { text-align: left; color: var(--ink); }
 table.sched tr:hover td { background: var(--blue-50); }
 .qwrap { display: inline-flex; flex-direction: column; align-items: flex-end; gap: 2px; }
-.qbar { display: flex; justify-content: flex-end; width: 54px; height: 3px; }
-.qbar i { display: block; height: 100%; background: var(--blue-500); opacity: .6; border-radius: 2px; }
+.qbar { display: block; width: 54px; height: 3px; background: var(--grid); border-radius: 2px; overflow: hidden; }
+.qbar i { display: block; height: 100%; background: var(--blue-500); opacity: .6; }
 .arrow-up { color: var(--up); } .arrow-down { color: var(--down); } .flat { color: var(--faint); }
 .prot-star { color: var(--faint); font-size: 11px; }
 .tbl-box { max-height: 560px; overflow: auto; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
@@ -266,7 +260,7 @@ dialog p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
   <h2>Constraints &amp; objectives</h2>
 
   <section class="grp">
-    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg> Government budget <span class="chip" id="chipGov" title="Change in aggregate government contributions compared with today ($2,996m a year now)">&mdash;</span></h3>
+    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg> Government budget <span class="chip" id="chipGov" title="Change in aggregate government contributions compared with today ($2,997m a year now)">&mdash;</span></h3>
     <div class="ctl">
       <label class="head">Government spending <span class="val" id="gVal">+0.0%</span></label>
       <input type="range" id="gPct" min="-5" max="10" step="0.5" value="0">
@@ -367,22 +361,16 @@ dialog p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
       goal programming): a lower-priority objective can never trade away a higher one. Everything is a
       linear program, solved in your browser in milliseconds &mdash; there is no goal-seeking and no hidden
       target schedule. If your constraints are jointly impossible, the tool says so and suggests what to relax.</p>
-      <p>The example scenarios approximate the worked examples in the accompanying working paper, with two
-      calibration differences. The paper&rsquo;s Example A includes an additional target for the broad science
-      category, and the paper indexes the 2021 schedule by a single factor where this tool uses the exact
-      statutory 2026 rates &mdash; including the official grandfathered (pre-JRG) rates, which set the mid-band
-      fee caps slightly higher. Example A&rsquo;s largest increase is therefore smaller here, and Examples B
-      and C sit within a dollar or two of the paper&rsquo;s figures.</p>
+      <p>The example scenarios approximate the worked examples in the accompanying working paper. Example A
+      here achieves a slightly smaller largest-increase than the paper&rsquo;s Example A (which included an
+      additional target for the broad science category); Examples B and C match the paper&rsquo;s headline numbers.</p>
     </div>
   </details>
 
   <div class="smallprint">
     <strong>Data and assumptions.</strong> Coverage is Australia-wide: all Commonwealth-supported
-    bachelor students, about 237,000 EFTSL across 27 fields of study. The 27 fields are the unique
-    combinations of field of study and funding cluster, so study areas that share both &mdash; politics
-    and sociology, for example &mdash; are merged. Fees and subsidies are the official 2026 statutory
-    rates (Department of Education, <em>Indexed rates &mdash; amounts for 2026</em>), with blended broad
-    categories re-weighted to those rates. Field-level enrolments are an imputation:
+    bachelor students, about 237,000 EFTSL across 27 fields of study. Fees and subsidies are the 2026
+    indexed student and Commonwealth contribution schedules. Field-level enrolments are an imputation:
     2022 UAC (NSW &amp; ACT) applicant composition is scaled to 2024 national Commonwealth-supported
     bachelor totals, as in the accompanying working paper and Yong, Coelli &amp; Kab&aacute;tek (2023).
     Amounts are annual dollars per EFTSL in 2026-equivalent terms. The optimiser holds enrolments fixed
@@ -396,7 +384,7 @@ dialog p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
 <footer class="site-footer">
   <div class="inner">
     <div>&copy; 2026 Max Yong</div>
-    <div>Version 2.3 (July 2026)</div>
+    <div>Version 2.2 (July 2026)</div>
   </div>
 </footer>
 <div id="tooltip"></div>
@@ -435,10 +423,10 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Maths & statistics",
   "fullName": "Mathematics and Statistics",
   "q": 3174.5303,
-  "S0": 4738.0,
-  "G0": 15898.0,
-  "U0": 20636.0,
-  "Spre": 11635.8096,
+  "S0": 4739.2708,
+  "G0": 15897.5538,
+  "U0": 20636.8246,
+  "Spre": 11430.6412,
   "paperCap": 14900.0,
   "protectedDefault": false,
   "jrgRevPct": -0.15470808
@@ -448,11 +436,11 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Natural & physical sciences",
   "fullName": "Natural and physical sciences",
   "q": 10661.0447,
-  "S0": 9537.0,
+  "S0": 9538.5323,
   "G0": 19497.0,
-  "U0": 29034.0,
-  "Spre": 11635.8096,
-  "paperCap": 11635.8096,
+  "U0": 29035.5323,
+  "Spre": 11430.6412,
+  "paperCap": 11430.6412,
   "protectedDefault": false,
   "jrgRevPct": -0.14929518
  },
@@ -461,10 +449,10 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Medical science",
   "fullName": "Medical science",
   "q": 5387.395,
-  "S0": 9537.0,
+  "S0": 9538.5323,
   "G0": 19497.0,
-  "U0": 29034.0,
-  "Spre": 13624.0,
+  "U0": 29035.5323,
+  "Spre": 13383.9406,
   "paperCap": 14900.0,
   "protectedDefault": false,
   "jrgRevPct": -0.311894
@@ -474,11 +462,11 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Information technology",
   "fullName": "Information technology",
   "q": 12403.0,
-  "S0": 9537.0,
-  "G0": 15898.0,
-  "U0": 25435.0,
-  "Spre": 11635.8096,
-  "paperCap": 11635.8096,
+  "S0": 9538.5323,
+  "G0": 15897.5538,
+  "U0": 25436.0862,
+  "Spre": 11430.6412,
+  "paperCap": 11430.6412,
   "protectedDefault": false,
   "jrgRevPct": 0.04187144
  },
@@ -487,11 +475,11 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Engineering",
   "fullName": "Engineering",
   "q": 17230.0,
-  "S0": 9537.0,
+  "S0": 9538.5323,
   "G0": 19497.0,
-  "U0": 29034.0,
-  "Spre": 11635.8096,
-  "paperCap": 11635.8096,
+  "U0": 29035.5323,
+  "Spre": 11430.6412,
+  "paperCap": 11430.6412,
   "protectedDefault": false,
   "jrgRevPct": -0.14929518
  },
@@ -500,11 +488,11 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Architecture and Building",
   "fullName": "Architecture and Building",
   "q": 7626.0,
-  "S0": 9537.0,
-  "G0": 15898.0,
-  "U0": 25435.0,
-  "Spre": 11635.8096,
-  "paperCap": 11635.8096,
+  "S0": 9538.5323,
+  "G0": 15897.5538,
+  "U0": 25436.0862,
+  "Spre": 11430.6412,
+  "paperCap": 11430.6412,
   "protectedDefault": false,
   "jrgRevPct": 0.04187144
  },
@@ -513,10 +501,10 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Agriculture",
   "fullName": "Agriculture",
   "q": 509.4333,
-  "S0": 4738.0,
-  "G0": 32400.0,
-  "U0": 37138.0,
-  "Spre": 11635.8096,
+  "S0": 4739.2708,
+  "G0": 32395.0154,
+  "U0": 37134.2862,
+  "Spre": 11430.6412,
   "paperCap": 14900.0,
   "protectedDefault": false,
   "jrgRevPct": -0.07724874
@@ -526,11 +514,11 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Environmental studies",
   "fullName": "Environmental studies",
   "q": 2187.5667,
-  "S0": 9537.0,
+  "S0": 9538.5323,
   "G0": 19497.0,
-  "U0": 29034.0,
-  "Spre": 11635.8096,
-  "paperCap": 11635.8096,
+  "U0": 29035.5323,
+  "Spre": 11430.6412,
+  "paperCap": 11430.6412,
   "protectedDefault": false,
   "jrgRevPct": -0.27849498
  },
@@ -539,11 +527,11 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Medicine / dentistry / vet",
   "fullName": "Medicine, Dentistry, Veterinary",
   "q": 6633.8402,
-  "S0": 13558.0,
-  "G0": 32400.0,
-  "U0": 45958.0,
-  "Spre": 13624.0,
-  "paperCap": 14235.9,
+  "S0": 13557.9138,
+  "G0": 32395.0154,
+  "U0": 45952.9292,
+  "Spre": 13383.9406,
+  "paperCap": 14235.8095,
   "protectedDefault": false,
   "jrgRevPct": 0.08902727
  },
@@ -552,11 +540,11 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Nursing",
   "fullName": "Nursing",
   "q": 20784.1344,
-  "S0": 4738.0,
+  "S0": 4739.2708,
   "G0": 19497.0,
-  "U0": 24235.0,
-  "Spre": 8164.0,
-  "paperCap": 4738.0,
+  "U0": 24236.2708,
+  "Spre": 8019.566,
+  "paperCap": 4739.2708,
   "protectedDefault": true,
   "jrgRevPct": -0.06229691
  },
@@ -565,11 +553,11 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Pharmacy / allied health",
   "fullName": "Pharmacy, Optometry, Allied Health",
   "q": 17225.2073,
-  "S0": 9537.0,
-  "G0": 15898.0,
-  "U0": 25435.0,
-  "Spre": 11635.8096,
-  "paperCap": 11635.8096,
+  "S0": 9538.5323,
+  "G0": 15897.5538,
+  "U0": 25436.0862,
+  "Spre": 11430.6412,
+  "paperCap": 11430.6412,
   "protectedDefault": false,
   "jrgRevPct": -0.07160061
  },
@@ -578,11 +566,11 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Public Health",
   "fullName": "Public Health",
   "q": 3800.9342,
-  "S0": 9537.0,
-  "G0": 15898.0,
-  "U0": 25435.0,
-  "Spre": 11635.8096,
-  "paperCap": 11635.8096,
+  "S0": 9538.5323,
+  "G0": 15897.5538,
+  "U0": 25436.0862,
+  "Spre": 11430.6412,
+  "paperCap": 11430.6412,
   "protectedDefault": false,
   "jrgRevPct": 0.04187144
  },
@@ -591,10 +579,10 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Human movement",
   "fullName": "Human movement",
   "q": 3032.2059,
-  "S0": 17399.0,
-  "G0": 1316.0,
-  "U0": 18715.0,
-  "Spre": 8164.0,
+  "S0": 17397.3231,
+  "G0": 1319.7969,
+  "U0": 18717.12,
+  "Spre": 8019.566,
   "paperCap": 14700.0,
   "protectedDefault": false,
   "jrgRevPct": -0.10882605
@@ -604,11 +592,11 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Teaching",
   "fullName": "Teaching",
   "q": 20532.0,
-  "S0": 4738.0,
-  "G0": 15898.0,
-  "U0": 20636.0,
-  "Spre": 8164.0,
-  "paperCap": 4738.0,
+  "S0": 4739.2708,
+  "G0": 15897.5538,
+  "U0": 20636.8246,
+  "Spre": 8019.566,
+  "paperCap": 4739.2708,
   "protectedDefault": true,
   "jrgRevPct": -0.04146233
  },
@@ -617,23 +605,23 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Business",
   "fullName": "Business",
   "q": 31707.0,
-  "S0": 17399.0,
-  "G0": 1316.0,
-  "U0": 18715.0,
-  "Spre": 13624.0,
+  "S0": 17397.3231,
+  "G0": 1319.7969,
+  "U0": 18717.12,
+  "Spre": 13383.9406,
   "paperCap": 14900.0,
   "protectedDefault": false,
   "jrgRevPct": 0.16827679
  },
  {
   "id": 16,
-  "name": "Politics / sociology",
-  "fullName": "Politics, Sociology, Curatorial",
+  "name": "Politics / sociology / sport",
+  "fullName": "Politics, Sociology, Curatorial, S&R",
   "q": 16027.0375,
-  "S0": 17399.0,
-  "G0": 1316.0,
-  "U0": 18715.0,
-  "Spre": 8164.0,
+  "S0": 17397.3231,
+  "G0": 1319.7969,
+  "U0": 18717.12,
+  "Spre": 8019.566,
   "paperCap": 13900.0,
   "protectedDefault": false,
   "jrgRevPct": -0.10882605
@@ -643,11 +631,11 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Social work",
   "fullName": "Social work",
   "q": 3939.9316,
-  "S0": 9537.0,
-  "G0": 15898.0,
-  "U0": 25435.0,
-  "Spre": 8164.0,
-  "paperCap": 9537.0,
+  "S0": 9538.5323,
+  "G0": 15897.5538,
+  "U0": 25436.0862,
+  "Spre": 8019.566,
+  "paperCap": 9538.5323,
   "protectedDefault": true,
   "jrgRevPct": 0.21108255
  },
@@ -656,11 +644,11 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Psychology (professional)",
   "fullName": "Psychology (professional pathway)",
   "q": 11145.7063,
-  "S0": 9537.0,
-  "G0": 15898.0,
-  "U0": 25435.0,
-  "Spre": 8164.0,
-  "paperCap": 9537.0,
+  "S0": 9538.5323,
+  "G0": 15897.5538,
+  "U0": 25436.0862,
+  "Spre": 8019.566,
+  "paperCap": 9538.5323,
   "protectedDefault": true,
   "jrgRevPct": 0.06042417
  },
@@ -669,10 +657,10 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Law and Economics",
   "fullName": "Law and Economics",
   "q": 11064.3507,
-  "S0": 17399.0,
-  "G0": 1316.0,
-  "U0": 18715.0,
-  "Spre": 13624.0,
+  "S0": 17397.3231,
+  "G0": 1319.7969,
+  "U0": 18717.12,
+  "Spre": 13383.9406,
   "paperCap": 14900.0,
   "protectedDefault": false,
   "jrgRevPct": 0.16827679
@@ -682,10 +670,10 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Languages & literature",
   "fullName": "Languages and Literature",
   "q": 395.1554,
-  "S0": 4738.0,
-  "G0": 15898.0,
-  "U0": 20636.0,
-  "Spre": 8164.0,
+  "S0": 4739.2708,
+  "G0": 15897.5538,
+  "U0": 20636.8246,
+  "Spre": 8019.566,
   "paperCap": 14900.0,
   "protectedDefault": false,
   "jrgRevPct": 0.34375
@@ -695,10 +683,10 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "History / philosophy / legal",
   "fullName": "History, Philosophy, Legal Studies",
   "q": 755.4441,
-  "S0": 17399.0,
-  "G0": 1316.0,
-  "U0": 18715.0,
-  "Spre": 8164.0,
+  "S0": 17397.3231,
+  "G0": 1319.7969,
+  "U0": 18717.12,
+  "Spre": 8019.566,
   "paperCap": 13900.0,
   "protectedDefault": false,
   "jrgRevPct": 0.21875
@@ -708,11 +696,11 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Creative Arts",
   "fullName": "Creative Arts",
   "q": 8066.9458,
-  "S0": 9537.0,
-  "G0": 15898.0,
-  "U0": 25435.0,
-  "Spre": 8164.0,
-  "paperCap": 9537.0,
+  "S0": 9538.5323,
+  "G0": 15897.5538,
+  "U0": 25436.0862,
+  "Spre": 8019.566,
+  "paperCap": 9538.5323,
   "protectedDefault": true,
   "jrgRevPct": 0.06042417
  },
@@ -721,10 +709,10 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Communications / media",
   "fullName": "Communications, Journalism, Media",
   "q": 8305.1226,
-  "S0": 17399.0,
-  "G0": 1316.0,
-  "U0": 18715.0,
-  "Spre": 8164.0,
+  "S0": 17397.3231,
+  "G0": 1319.7969,
+  "U0": 18717.12,
+  "Spre": 8019.566,
   "paperCap": 13900.0,
   "protectedDefault": false,
   "jrgRevPct": -0.21968788
@@ -734,11 +722,11 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Science (broad)",
   "fullName": "Science (broad)",
   "q": 4860.0301,
-  "S0": 9051.1013,
-  "G0": 19132.3013,
-  "U0": 28183.4026,
-  "Spre": 12353.9013,
-  "paperCap": 12353.9013,
+  "S0": 9052.6071,
+  "G0": 19132.2561,
+  "U0": 28184.8632,
+  "Spre": 12136.1326,
+  "paperCap": 12136.1326,
   "protectedDefault": false,
   "jrgRevPct": -0.21834759
  },
@@ -747,11 +735,11 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Health (broad)",
   "fullName": "Health (broad)",
   "q": 1067.6781,
-  "S0": 8391.2387,
-  "G0": 18758.0053,
-  "U0": 27149.244,
-  "Spre": 10083.4216,
-  "paperCap": 10083.4216,
+  "S0": 8392.7086,
+  "G0": 18757.9137,
+  "U0": 27150.6223,
+  "Spre": 9905.6758,
+  "paperCap": 9905.6758,
   "protectedDefault": false,
   "jrgRevPct": -0.03323792
  },
@@ -760,10 +748,10 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Arts (broad)",
   "fullName": "Arts (broad)",
   "q": 7833.3744,
-  "S0": 14104.1422,
-  "G0": 6909.9672,
-  "U0": 21014.1094,
-  "Spre": 10008.9196,
+  "S0": 14103.8298,
+  "G0": 6912.1364,
+  "U0": 21015.9663,
+  "Spre": 9832.4871,
   "paperCap": 13900.0,
   "protectedDefault": false,
   "jrgRevPct": 0.13284181
@@ -773,10 +761,10 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
   "name": "Creative Arts (broad)",
   "fullName": "Creative Arts (broad)",
   "q": 434.9316,
-  "S0": 13428.3678,
-  "G0": 8681.4102,
-  "U0": 22109.778,
-  "Spre": 8164.0,
+  "S0": 13428.3338,
+  "G0": 8683.0639,
+  "U0": 22111.3977,
+  "Spre": 8019.566,
   "paperCap": 13900.0,
   "protectedDefault": false,
   "jrgRevPct": -0.07818127
@@ -919,10 +907,7 @@ function solveLexicographic(cfg) {
     return {
       ...f, S, G, U: S + G,
       dS: S - f.S0, dG: G - f.G0, dU: (S + G) - f.U0,
-      pct: (S - f.S0) / f.S0 * 100,
-      gpct: f.G0 > 0 ? (G - f.G0) / f.G0 * 100 : 0,
-      upct: ((S + G) - f.U0) / f.U0 * 100,
-      cap: caps[i]
+      pct: (S - f.S0) / f.S0 * 100, cap: caps[i]
     };
   });
   let fInc = fields[0], fCut = fields[0];
@@ -968,9 +953,9 @@ function infeasibilityHint(cfg, caps, rb) {
 
 /* ---------- formatting ---------- */
 const fmt$ = x => "$" + Math.round(x).toLocaleString("en-AU");
-const fmtSigned$ = x => Math.abs(x) < 0.5 ? "—" : (x > 0 ? "+" : "−") + "$" + Math.abs(Math.round(x)).toLocaleString("en-AU");
+const fmtSigned$ = x => Math.abs(x) < 0.5 ? "0" : (x > 0 ? "+" : "−") + "$" + Math.abs(Math.round(x)).toLocaleString("en-AU");
 const fmtM = x => Math.abs(x) < 0.5 ? "$0m" : (x > 0 ? "+" : "−") + "$" + Math.abs(x).toFixed(0) + "m";
-const fmtPct = x => Math.round(Math.abs(x)) === 0 ? "0%" : (x > 0 ? "+" : "−") + Math.round(Math.abs(x)) + "%";
+const fmtPct = x => Math.abs(x) < 0.05 ? "0%" : (x > 0 ? "+" : "−") + Math.abs(x).toFixed(1) + "%";
 const fmtK = q => { const k = q / 1000; return (k >= 10 ? Math.round(k) : k.toFixed(1)) + "k"; };
 const esc = s => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;")
   .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -1193,7 +1178,7 @@ function renderStatus(r) {
 function renderCards(m) {
   const pctT = "As a share of that field’s current fee";
   $("cards").innerHTML =
-    `<div class="card"><div class="k">Max annual fee</div><div class="v">${fmt$(m.maxFee)}</div><div class="d">was ${fmt$(17399)} today</div></div>
+    `<div class="card"><div class="k">Max annual fee</div><div class="v">${fmt$(m.maxFee)}</div><div class="d">was ${fmt$(17397)} today</div></div>
      <div class="card"><div class="k">Largest increase in fees</div><div class="v${m.maxInc > 0.5 ? " inc" : ""}">${fmtSigned$(m.maxInc)}<span class="vp" title="${pctT}">${m.maxInc > 0.5 ? fmtPct(m.maxIncPct) : ""}</span></div><div class="d">${m.nUp} fields rise</div></div>
      <div class="card"><div class="k">Largest decrease in fees</div><div class="v${m.maxCut < -0.5 ? " dec" : ""}">${fmtSigned$(m.maxCut)}<span class="vp" title="${pctT}">${m.maxCut < -0.5 ? fmtPct(m.maxCutPct) : ""}</span></div><div class="d">${m.nDown} fields fall, ${m.nFlat} unchanged</div></div>`;
 }
@@ -1227,8 +1212,8 @@ function renderChart(fields) {
     s += `<text x="${mL - 8}" y="${y + 1}" text-anchor="end" font-size="11.5" fill="var(--ink-2)">${lbl}${protectedIds.has(f.id) ? " ✦" : ""}</text>`;
     // EFTSL bar under the label (length = enrolments)
     const bw = Math.max(1.5, f.q / MAXQ * 70);
-    s += `<rect x="${mL - 8 - bw}" y="${y + 8}" width="${bw}" height="2.5" rx="1.25" fill="var(--ink-3)" opacity="0.4"/>`;
-    s += `<text x="${mL - 8 - bw - 4}" y="${y + 12}" text-anchor="end" font-size="8" fill="var(--faint)">${fmtK(f.q)}</text>`;
+    s += `<rect x="${mL - 8 - bw}" y="${y + 5}" width="${bw}" height="2.5" rx="1.25" fill="var(--ink-3)" opacity="0.4"/>`;
+    s += `<text x="${mL - 8 - bw - 4}" y="${y + 8.5}" text-anchor="end" font-size="8" fill="var(--faint)">${fmtK(f.q)}</text>`;
     // connector
     s += `<line x1="${x(Math.min(f.S0, f.S))}" y1="${y}" x2="${x(Math.max(f.S0, f.S))}" y2="${y}" stroke="var(--border)" stroke-width="2"/>`;
     // old pre-JRG diamond (open)
@@ -1264,66 +1249,43 @@ function renderChart(fields) {
   });
 }
 
-const GROUP_DEFS = [
-  { g: "fee", label: "Student fee", cur: "S0", nw: "S", d: "dS", p: "pct" },
-  { g: "sub", label: "Subsidy", cur: "G0", nw: "G", d: "dG", p: "gpct" },
-  { g: "rev", label: "University revenue", cur: "U0", nw: "U", d: "dU", p: "upct" }
+const COLS = [
+  ["name", "Field", f => f.name + (protectedIds.has(f.id) ? ' <span class="prot-star">✦</span>' : "")],
+  ["q", "EFTSL", f => `<span class="qwrap"><span>${Math.round(f.q).toLocaleString()}</span><span class="qbar"><i style="width:${Math.max(2, f.q / MAXQ * 100).toFixed(1)}%"></i></span></span>`],
+  ["S0", "Current fee", f => fmt$(f.S0)],
+  ["S", "New fee", f => fmt$(f.S)],
+  ["dS", "Δ fee", f => arrow(f.dS) + fmtSigned$(f.dS)],
+  ["pct", "Δ %", f => fmtPct(f.pct)],
+  ["G", "New govt", f => fmt$(f.G)],
+  ["dG", "Δ govt", f => fmtSigned$(f.dG)],
+  ["dU", "Δ univ. revenue", f => fmtSigned$(f.dU)]
 ];
-const groupOpen = { fee: true, sub: true, rev: true };
-const arrow = d => d > 0.5 ? '<span class="arrow-up">▲ </span>' : d < -0.5 ? '<span class="arrow-down">▼ </span>' : "";
-const DASH = '<span class="flat">—</span>';
-const cellDelta$ = v => Math.abs(v) < 0.5 ? DASH : arrow(v) + fmtSigned$(v);
-const cellDeltaPct = (p, v) => Math.abs(v) < 0.5 ? DASH : fmtPct(p);
+const arrow = d => d > 0.5 ? '<span class="arrow-up">▲ </span>' : d < -0.5 ? '<span class="arrow-down">▼ </span>' : '<span class="flat">— </span>';
 
 function renderTable(fields) {
   const sorted = [...fields].sort((a, b) => {
     const av = a[sortKey], bv = b[sortKey];
     return (typeof av === "string" ? av.localeCompare(bv) : av - bv) * sortDir;
   });
-  const mark = k => sortKey === k ? (sortDir > 0 ? " ↑" : " ↓") : "";
-  let h = "<thead><tr>";
-  h += `<th rowspan="2" class="hrow2" data-k="name">Field${mark("name")}</th>`;
-  h += `<th rowspan="2" class="hrow2" data-k="q">EFTSL${mark("q")}</th>`;
-  for (const gd of GROUP_DEFS) {
-    const open = groupOpen[gd.g];
-    h += `<th class="ghead${open ? "" : " closed"}" colspan="${open ? 4 : 1}" data-g="${gd.g}" title="Click to ${open ? "hide" : "show"} these columns">${gd.label} ${open ? "▾" : "▸"}</th>`;
-  }
-  h += "</tr><tr>";
-  for (const gd of GROUP_DEFS) {
-    if (groupOpen[gd.g])
-      h += `<th data-k="${gd.cur}" class="gfirst">Current${mark(gd.cur)}</th><th data-k="${gd.nw}">New${mark(gd.nw)}</th><th data-k="${gd.d}">Δ $${mark(gd.d)}</th><th data-k="${gd.p}">Δ %${mark(gd.p)}</th>`;
-    else h += `<th class="gpad gfirst"></th>`;
-  }
-  h += "</tr></thead><tbody>";
-  h += sorted.map(f => {
-    let r = `<tr><td>${f.name}${protectedIds.has(f.id) ? ' <span class="prot-star">✦</span>' : ""}</td>`;
-    r += `<td><span class="qwrap"><span>${Math.round(f.q).toLocaleString()}</span><span class="qbar"><i style="width:${Math.max(2, f.q / MAXQ * 100).toFixed(1)}%"></i></span></span></td>`;
-    for (const gd of GROUP_DEFS) {
-      if (groupOpen[gd.g])
-        r += `<td class="gfirst">${fmt$(f[gd.cur])}</td><td>${fmt$(f[gd.nw])}</td><td>${cellDelta$(f[gd.d])}</td><td>${cellDeltaPct(f[gd.p], f[gd.d])}</td>`;
-      else r += `<td class="gpad gfirst"></td>`;
-    }
-    return r + "</tr>";
-  }).join("");
+  let h = "<thead><tr>" + COLS.map(([k, label]) =>
+    `<th data-k="${k}">${label}${sortKey === k ? (sortDir > 0 ? " ↑" : " ↓") : ""}</th>`).join("") + "</tr></thead><tbody>";
+  h += sorted.map(f => "<tr>" + COLS.map(([k, , fn]) => `<td>${fn(f)}</td>`).join("") + "</tr>").join("");
   h += "</tbody>";
   $("tbl").innerHTML = h;
-  document.querySelectorAll("#tbl th[data-k]").forEach(th => th.addEventListener("click", () => {
+  document.querySelectorAll("#tbl th").forEach(th => th.addEventListener("click", () => {
     const k = th.dataset.k;
     if (sortKey === k) sortDir *= -1; else { sortKey = k; sortDir = k === "name" ? 1 : -1; }
-    renderTable(lastResult.fields);
-  }));
-  document.querySelectorAll("#tbl th[data-g]").forEach(th => th.addEventListener("click", () => {
-    groupOpen[th.dataset.g] = !groupOpen[th.dataset.g];
     renderTable(lastResult.fields);
   }));
 }
 
 function downloadCSV() {
   if (!lastResult || !lastResult.feasible) return;
-  const head = "field,eftsl,current_fee,new_fee,fee_change,fee_pct_change,current_subsidy,new_subsidy,subsidy_change,subsidy_pct_change,current_revenue,new_revenue,revenue_change,revenue_pct_change,protected\n";
+  const head = "field,eftsl,current_fee,new_fee,fee_change,fee_pct_change,current_govt,new_govt,govt_change,current_revenue,new_revenue,revenue_change,protected\n";
   const rows = lastResult.fields.map(f =>
-    [`"${f.fullName}"`, f.q, f.S0, f.S, f.dS, f.pct / 100, f.G0, f.G, f.dG, f.gpct / 100,
-     f.U0, f.U, f.dU, f.upct / 100, protectedIds.has(f.id) ? 1 : 0].join(",")).join("\n");
+    [`"${f.fullName}"`, f.q.toFixed(1), f.S0.toFixed(2), f.S.toFixed(2), f.dS.toFixed(2),
+     (f.pct / 100).toFixed(4), f.G0.toFixed(2), f.G.toFixed(2), f.dG.toFixed(2),
+     f.U0.toFixed(2), f.U.toFixed(2), f.dU.toFixed(2), protectedIds.has(f.id) ? 1 : 0].join(",")).join("\n");
   const a = document.createElement("a");
   a.href = "data:text/csv;charset=utf-8," + encodeURIComponent(head + rows);
   a.download = "optimised_fee_schedule.csv";

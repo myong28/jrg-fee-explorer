@@ -20,7 +20,7 @@ It is a single static file. Open `index.html` in a browser, or host it anywhere
 
 ## Versioning
 
-The live page is v2.2 (July 2026): v2's interface restyled to match the design
+The live page is v2.3 (July 2026): v2's interface restyled to match the design
 system of the author's personal site (maxyong.au) — Inter, Classic Blue light /
 Midnight dark themes, shared design tokens. v2 (July 2026) introduced scenario
 cards with saveable custom scenarios (stored in the browser), grouped constraint
@@ -39,12 +39,16 @@ list, and EFTSL bars. Superseded versions are kept unmodified under `archive/`
   on any single increase. Objectives are minimised lexicographically (later priorities can
   never trade away earlier ones). Solved with a vendored copy of
   [jsLPSolver](https://github.com/JWally/jsLPSolver) (MIT licence).
+- **Rates**: fees and subsidies are the official 2026 statutory amounts (Department of
+  Education, *Indexed rates — amounts for 2026*; copy in `source/`), including the official
+  grandfathered pre-JRG rates. Blended broad categories are re-weighted to those rates.
 - **Validation**: `validation/web_expectations.R` solves the three preset configurations
-  with R's `lpSolve` and writes `web_expected.json`; the browser solver matches these on
-  every metric and stage objective to within $0.01. Preset A reports a slightly smaller
-  largest-increase ($5,116) than the paper's Example A ($5,237) because the paper's
-  calibration includes an additional broad-science fee target; presets B and C match the
-  paper's headline numbers ($1,000 and $1,268).
+  with R's `lpSolve` on the site's exact inputs (`validation/site_inputs_2026_statutory.csv`)
+  and writes `web_expected.json`; the browser solver matches every headline metric. Preset A
+  reports a smaller largest-increase ($3,443) than the paper's Example A ($5,237): the paper
+  adds a broad-science fee target and indexes the 2021 schedule by a single factor, which
+  understates the pre-JRG caps slightly. Presets B and C sit within a dollar or two of the
+  paper's $1,000 and $1,268.
 
 ## Caveats
 
