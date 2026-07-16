@@ -20,7 +20,7 @@ It is a single static file. Open `index.html` in a browser, or host it anywhere
 
 ## Versioning
 
-The live page is v2.4 (July 2026): v2's interface restyled to match the design
+The live page is v2.5 (July 2026): v2's interface restyled to match the design
 system of the author's personal site (maxyong.au) — Inter, Classic Blue light /
 Midnight dark themes, shared design tokens. v2 (July 2026) introduced scenario
 cards with saveable custom scenarios (stored in the browser), grouped constraint

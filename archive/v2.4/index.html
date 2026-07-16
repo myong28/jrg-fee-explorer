@@ -216,7 +216,7 @@ table.sched tr:hover td { background: var(--blue-50); }
 .arrow-up { color: var(--up); } .arrow-down { color: var(--down); } .flat { color: var(--faint); }
 .prot-star { color: var(--faint); font-size: 11px; }
 .tbl-box { max-height: 560px; overflow: auto; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
-.toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin: 18px 0 8px; }
+.toolbar { display: flex; justify-content: space-between; align-items: center; margin: 18px 0 8px; }
 .toolbar h2 { margin: 0; font-size: 16px; }
 main > .toolbar h2, .wrap > .toolbar h2 { font-size: 17px; color: var(--ink); text-transform: none; letter-spacing: -0.01em; font-weight: 700; }
 .toolbar button { background: var(--surface); border: 1px solid var(--border); color: var(--blue-600); font-weight: 600;
@@ -226,7 +226,7 @@ main > .toolbar h2, .wrap > .toolbar h2 { font-size: 17px; color: var(--ink); te
 .method { margin-top: 22px; }
 .method summary { cursor: pointer; font-weight: 700; color: var(--ink); }
 .method .inner { color: var(--ink-2); font-size: 14px; max-width: 84ch; }
-.smallprint { margin-top: 28px; color: var(--ink-3); font-size: 12.5px; line-height: 1.6; }
+.smallprint { margin-top: 28px; color: var(--ink-3); font-size: 12.5px; line-height: 1.6; max-width: 90ch; }
 .smallprint strong { color: var(--ink-2); font-weight: 600; }
 .site-footer { border-top: 1px solid var(--border); padding: 22px 0 26px; font-size: 13px; color: var(--ink-3); }
 .site-footer .inner { max-width: 1240px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
@@ -285,15 +285,16 @@ dialog p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
   <section class="grp">
     <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg> Government budget <span class="chip" id="chipGov" title="Change in aggregate government contributions compared with today ($2,996m a year now)">&mdash;</span></h3>
     <div class="ctl">
-      <label class="head">Government spending <span class="info" tabindex="0" data-tip="Change in aggregate government contributions across all covered students, compared with today.">i</span> <span class="val" id="gVal">+0.0%</span></label>
+      <label class="head">Government spending <span class="val" id="gVal">+0.0%</span></label>
       <input type="range" id="gPct" min="-5" max="10" step="0.5" value="0">
+      <div class="hint">Change in aggregate government contributions</div>
     </div>
   </section>
 
   <section class="grp">
     <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg> Universities <span class="chip" id="chipUni" title="Change in aggregate university revenue compared with today ($5,655m a year now)">&mdash;</span></h3>
     <div class="ctl">
-      <label class="head">Revenue rule <span class="info" tabindex="0" data-tip="Sets how much each field&rsquo;s per-student university revenue (student fee + government contribution) may change. Fixed: no field gains or loses a dollar. JRG giveback: fields whose funding rose under JRG may give back up to 5%; fields that lost may recover up to 3%. Custom bounds: the same loss/gain limits apply to every field &mdash; % bounds are shares of current per-student revenue, $ bounds are dollars per student per year.">i</span></label>
+      <label class="head">Revenue rule <span class="info" tabindex="0" data-tip="Sets how much each field&rsquo;s per-student university revenue (student fee + government contribution) may change. Fixed: no field gains or loses a dollar. JRG giveback: fields whose funding rose under JRG may give back up to 5%; fields that lost may recover up to 3%. Custom bounds: the same loss/gain limits apply to every field, in % or dollars.">i</span></label>
       <div class="radio-row">
         <label><input type="radio" name="revMode" value="fixed" checked> Fixed for every field</label>
         <label><input type="radio" name="revMode" value="jrg"> JRG giveback (partly reverse JRG&rsquo;s funding changes)</label>
@@ -308,11 +309,13 @@ dialog p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
             <button type="button" data-unit="dollar">$</button>
           </div>
         </div>
+        <div class="hint" id="unitHint">Per field, % of current per-student revenue</div>
       </div>
     </div>
     <div class="ctl" id="rPctCtl" style="opacity:.45; pointer-events:none;">
-      <label class="head">Total university revenue <span class="info" tabindex="0" data-tip="Aggregate change across all universities, compared with today. Only active when the revenue rule lets field-level revenue vary.">i</span> <span class="val" id="rVal">+0.0%</span></label>
+      <label class="head">Total university revenue <span class="val" id="rVal">+0.0%</span></label>
       <input type="range" id="rPct" min="-5" max="5" step="0.5" value="0">
+      <div class="hint">Aggregate change across all universities. Active when field revenue may vary.</div>
     </div>
   </section>
 
@@ -327,8 +330,9 @@ dialog p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
       </div>
     </div>
     <div class="ctl">
-      <label class="head">Cap any single fee increase ($) <span class="info" tabindex="0" data-tip="No field&rsquo;s annual fee may rise by more than this. Leave blank for no cap; tight caps can make the problem infeasible.">i</span></label>
+      <label class="head">Cap any single fee increase ($)</label>
       <input type="number" id="hMax" min="0" step="100" placeholder="No cap">
+      <div class="hint">Leave blank for no cap. Tight caps can make the problem infeasible.</div>
     </div>
     <details class="adv" id="protDetails">
       <summary>Protected fields (no fee increase) &mdash; <span id="protCount">5</span> selected</summary>
@@ -337,8 +341,9 @@ dialog p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
   </section>
 
   <section class="grp">
-    <h3>Objectives <span class="info" tabindex="0" data-tip="Minimised in strict priority order (lexicographic goal programming): a lower-priority objective can never trade away a higher-priority one. Untick an objective to ignore it; use the arrows to reorder. Tip: keeping &lsquo;largest single fee increase&rsquo; ticked rules out schedules that dump one big rise on a small field.">i</span></h3>
+    <h3>Objectives <span class="info" tabindex="0" data-tip="Minimised in strict priority order (lexicographic goal programming): a lower-priority objective can never trade away a higher-priority one. Untick an objective to ignore it; use the arrows to reorder.">i</span></h3>
     <div id="objList"></div>
+    <div class="hint">Solved top to bottom. Tip: keeping &ldquo;largest single fee increase&rdquo; ticked rules out schedules that dump one big rise on a small field.</div>
   </section>
 </aside>
 
@@ -351,8 +356,8 @@ dialog p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
       <h2>Current vs optimised</h2>
       <div class="view-toggle" id="viewToggle">
         <button type="button" data-view="fee" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="gicon"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg> Student fee</button>
-        <button type="button" data-view="sub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="gicon"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg> Government subsidy</button>
-        <button type="button" data-view="rev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="gicon"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg> University revenue</button>
+        <button type="button" data-view="sub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="gicon"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg> Subsidy</button>
+        <button type="button" data-view="rev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="gicon"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg> Revenue</button>
       </div>
     </div>
     <div class="legend">
@@ -365,20 +370,7 @@ dialog p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
     <div class="chart-box" id="chartBox"></div>
   </div>
 
-</main>
-</div>
-
-<div class="toolbar">
-  <h2>Field-by-field results</h2>
-  <button id="csvBtn">Download CSV</button>
-</div>
-<div class="tbl-wrap">
-  <div class="tbl-box"><table class="sched" id="tbl"></table></div>
-  <div class="tbl-fade left"></div>
-  <div class="tbl-fade right"></div>
-</div>
-
-<details class="method panel" style="margin-top:22px">
+  <details class="method panel" style="margin-top:22px">
     <summary>How the optimiser works</summary>
     <div class="inner">
       <p>For each of 27 fields the model chooses a new student contribution <em>S</em> and government
@@ -400,12 +392,24 @@ dialog p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
     </div>
   </details>
 
+</main>
+</div>
+
+<div class="toolbar">
+  <h2>Field-by-field results</h2>
+  <button id="csvBtn">Download CSV</button>
+</div>
+<div class="tbl-wrap">
+  <div class="tbl-box"><table class="sched" id="tbl"></table></div>
+  <div class="tbl-fade left"></div>
+  <div class="tbl-fade right"></div>
+</div>
+
   <div class="smallprint">
     <strong>Data and assumptions.</strong> Coverage is Australia-wide: all Commonwealth-supported
     bachelor students, about 237,000 EFTSL across 27 fields of study. The 27 fields are the unique
     combinations of field of study and funding cluster, so study areas that share both &mdash; politics
-    and sociology, for example &mdash; are merged, and fields labelled &ldquo;(broad)&rdquo; are generalist
-    programs recorded at a broader classification level, whose rates blend more than one funding band. Fees and subsidies are the official 2026 statutory
+    and sociology, for example &mdash; are merged. Fees and subsidies are the official 2026 statutory
     rates (Department of Education, <em>Indexed rates &mdash; amounts for 2026</em>), with blended broad
     categories re-weighted to those rates. Field-level enrolments are an imputation:
     2022 UAC (NSW &amp; ACT) applicant composition is scaled to 2024 national Commonwealth-supported
@@ -419,7 +423,7 @@ dialog p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
 <footer class="site-footer">
   <div class="inner">
     <div>&copy; 2026 Max Yong</div>
-    <div>Version 2.5 (July 2026)</div>
+    <div>Version 2.4 (July 2026)</div>
   </div>
 </footer>
 <div id="tooltip"></div>
@@ -455,7 +459,7 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
 <script>const FIELDS = [
  {
   "id": 1,
-  "name": "Maths & Statistics",
+  "name": "Maths & statistics",
   "fullName": "Mathematics and Statistics",
   "q": 3174.5303,
   "S0": 4738.0,
@@ -468,8 +472,8 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
  },
  {
   "id": 2,
-  "name": "Natural & Physical Sciences",
-  "fullName": "Natural and Physical Sciences",
+  "name": "Natural & physical sciences",
+  "fullName": "Natural and physical sciences",
   "q": 10661.0447,
   "S0": 9537.0,
   "G0": 19497.0,
@@ -481,8 +485,8 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
  },
  {
   "id": 3,
-  "name": "Medical Science",
-  "fullName": "Medical Science",
+  "name": "Medical science",
+  "fullName": "Medical science",
   "q": 5387.395,
   "S0": 9537.0,
   "G0": 19497.0,
@@ -494,8 +498,8 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
  },
  {
   "id": 4,
-  "name": "Information Technology",
-  "fullName": "Information Technology",
+  "name": "Information technology",
+  "fullName": "Information technology",
   "q": 12403.0,
   "S0": 9537.0,
   "G0": 15898.0,
@@ -546,8 +550,8 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
  },
  {
   "id": 8,
-  "name": "Environmental Studies",
-  "fullName": "Environmental Studies",
+  "name": "Environmental studies",
+  "fullName": "Environmental studies",
   "q": 2187.5667,
   "S0": 9537.0,
   "G0": 19497.0,
@@ -585,7 +589,7 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
  },
  {
   "id": 11,
-  "name": "Pharmacy / Allied Health",
+  "name": "Pharmacy / Allied health",
   "fullName": "Pharmacy, Optometry, Allied Health",
   "q": 17225.2073,
   "S0": 9537.0,
@@ -611,8 +615,8 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
  },
  {
   "id": 13,
-  "name": "Human Movement",
-  "fullName": "Human Movement",
+  "name": "Human movement",
+  "fullName": "Human movement",
   "q": 3032.2059,
   "S0": 17399.0,
   "G0": 1316.0,
@@ -663,8 +667,8 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
  },
  {
   "id": 17,
-  "name": "Social Work",
-  "fullName": "Social Work",
+  "name": "Social work",
+  "fullName": "Social work",
   "q": 3939.9316,
   "S0": 9537.0,
   "G0": 15898.0,
@@ -677,7 +681,7 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
  {
   "id": 18,
   "name": "Psychology",
-  "fullName": "Psychology, Professional Pathway",
+  "fullName": "Psychology, professional pathway",
   "q": 11145.7063,
   "S0": 9537.0,
   "G0": 15898.0,
@@ -702,7 +706,7 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
  },
  {
   "id": 20,
-  "name": "Languages & Literature",
+  "name": "Languages & literature",
   "fullName": "Languages and Literature",
   "q": 395.1554,
   "S0": 4738.0,
@@ -1056,6 +1060,9 @@ function setBoundsUnit(u) {
   const a = u === "pct" ? { min: 0, max: 20, step: 0.5 } : { min: 0, max: 5000, step: 50 };
   ["lossVal", "gainVal"].forEach(id => { const el = $(id); el.min = a.min; el.max = a.max; el.step = a.step; });
   document.querySelectorAll("#unitToggle button").forEach(b => b.classList.toggle("on", b.dataset.unit === u));
+  $("unitHint").textContent = u === "pct"
+    ? "Per field, % of current per-student revenue"
+    : "Per field, dollars per student per year";
 }
 
 function applyConfig(cfg) {
@@ -1238,7 +1245,7 @@ let chartView = "fee";
 function renderChart(fields) {
   const V = CHART_VIEWS[chartView];
   const sorted = [...fields].sort((a, b) => V.cur(b) - V.cur(a) || V.nw(b) - V.nw(a));
-  const rowH = 20, mL = 200, mR = 18, mT = 20, mB = 30;
+  const rowH = 30, mL = 200, mR = 18, mT = 24, mB = 34;
   const W = 860, plotW = W - mL - mR;
   const H = mT + rowH * sorted.length + mB;
   const maxVal = Math.max(...fields.map(f => Math.max(V.cur(f), V.nw(f), V.old(f))));
@@ -1257,10 +1264,11 @@ function renderChart(fields) {
     // very faint row guide
     s += `<line x1="${mL}" x2="${W - mR}" y1="${y}" y2="${y}" stroke="var(--grid)" stroke-width="1" opacity="0.5"/>`;
     const lbl = f.name.length > 30 ? f.name.slice(0, 29) + "…" : f.name;
-    s += `<text x="${mL - 8}" y="${y + 1}" text-anchor="end" font-size="11.5" fill="var(--ink-2)">${lbl}${protectedIds.has(f.id) ? " ✦" : ""} <tspan font-size="8" fill="var(--faint)">· ${fmtK(f.q)}</tspan></text>`;
-    // EFTSL bar under the label (count shown inline above)
+    s += `<text x="${mL - 8}" y="${y + 1}" text-anchor="end" font-size="11.5" fill="var(--ink-2)">${lbl}${protectedIds.has(f.id) ? " ✦" : ""}</text>`;
+    // EFTSL bar + count under the label
     const bw = Math.max(1.5, f.q / MAXQ * 70);
-    s += `<rect x="${mL - 8 - bw}" y="${y + 6.5}" width="${bw}" height="2.2" rx="1.1" fill="var(--ink-3)" opacity="0.4"/>`;
+    s += `<rect x="${mL - 8 - bw}" y="${y + 8}" width="${bw}" height="2.5" rx="1.25" fill="var(--ink-3)" opacity="0.4"/>`;
+    s += `<text x="${mL - 8 - bw - 4}" y="${y + 12}" text-anchor="end" font-size="8" fill="var(--faint)">${fmtK(f.q)}</text>`;
     // connector
     s += `<line x1="${x(Math.min(cur, nw))}" y1="${y}" x2="${x(Math.max(cur, nw))}" y2="${y}" stroke="var(--border)" stroke-width="2"/>`;
     // old pre-JRG diamond (open)
@@ -1284,8 +1292,8 @@ function renderChart(fields) {
         <div class="r"><span>Current fee (2026)</span><span>${fmt$(f.S0)}</span></div>
         <div class="r"><span>New optimum</span><span>${fmt$(f.S)} (${fmtSigned$(f.dS)}, ${fmtPct(f.pct)})</span></div>
         <div class="r"><span>Old (pre-JRG, indexed)</span><span>${fmt$(f.Spre)}</span></div>
-        <div class="r"><span>Government subsidy</span><span>${fmt$(f.G)} (${fmtSigned$(f.dG)})</span></div>
-        <div class="r"><span>University revenue</span><span>${fmt$(f.U)} (${fmtSigned$(f.dU)})</span></div>
+        <div class="r"><span>Govt contribution</span><span>${fmt$(f.G)} (${fmtSigned$(f.dG)})</span></div>
+        <div class="r"><span>Univ. revenue</span><span>${fmt$(f.U)} (${fmtSigned$(f.dU)})</span></div>
         <div class="r"><span>EFTSL</span><span>${Math.round(f.q).toLocaleString()}</span></div>`;
       tip.style.display = "block";
       const vw = window.innerWidth;
@@ -1303,7 +1311,7 @@ const GROUP_ICONS = {
 };
 const GROUP_DEFS = [
   { g: "fee", label: "Student fee", cur: "S0", nw: "S", d: "dS", p: "pct" },
-  { g: "sub", label: "Government subsidy", cur: "G0", nw: "G", d: "dG", p: "gpct" },
+  { g: "sub", label: "Subsidy", cur: "G0", nw: "G", d: "dG", p: "gpct" },
   { g: "rev", label: "University revenue", cur: "U0", nw: "U", d: "dU", p: "upct" }
 ];
 const groupOpen = { fee: true, sub: true, rev: true };
