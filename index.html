@@ -30,7 +30,7 @@
   --hover-border: #dbe9f9;
   --chip-bg: #dbe9f9; --chip-fg: #17497f;
   --prejrg: #d89a1e; --current: #6b7a8f;
-  --up: #c2453f; --down: #2e7cd6;
+  --up: #7f2724; --down: #14532d;
   --good: #0f766e; --bad: #c2453f;
   --shadow: 0 1px 2px rgba(12,31,58,.06), 0 1px 6px rgba(12,31,58,.05);
   --shadow-md: 0 6px 24px rgba(12,31,58,.10), 0 2px 6px rgba(12,31,58,.06);
@@ -49,7 +49,7 @@
   --hover-border: #2a4a7a;
   --chip-bg: #17325a; --chip-fg: #a9cdf2;
   --prejrg: #d9a83c; --current: #8ea3bd;
-  --up: #e57373; --down: #5b9be0;
+  --up: #e08a84; --down: #7cc9a5;
   --good: #4cc4b4; --bad: #e57373;
   --shadow: 0 1px 2px rgba(0,0,0,.4);
   --shadow-md: 0 8px 28px rgba(0,0,0,.5);
@@ -60,7 +60,7 @@ body { margin: 0; background: var(--page); color: var(--ink-2);
   -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
   transition: background .25s ease, color .25s ease; }
 ::selection { background: var(--blue-100); color: var(--ink); }
-.wrap { max-width: 1240px; margin: 0 auto; padding: 20px 24px 64px; }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 20px 24px 36px; }
 header.top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 2px; }
 h1 { font-size: 25px; margin: 8px 0 2px; letter-spacing: -0.02em; font-weight: 800; color: var(--ink); line-height: 1.2; }
 h1 .accent { color: var(--blue-600); }
@@ -109,7 +109,8 @@ h1 .accent { color: var(--blue-600); }
 .panel h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .12em; color: var(--faint); font-weight: 700; margin: 0 0 10px; }
 .grp { border-top: 1px solid var(--border); margin-top: 15px; padding-top: 12px; }
 .grp:first-of-type { border-top: none; margin-top: 2px; padding-top: 0; }
-.grp h3 { display: flex; align-items: center; gap: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .14em;
+.grp h3 svg { width: 13px; height: 13px; flex: none; opacity: .9; }
+.grp h3 { display: flex; align-items: center; gap: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .09em;
   color: var(--blue-500); margin: 0 0 9px; font-weight: 700; }
 .chip { margin-left: auto; font-size: 11.5px; font-weight: 700; font-variant-numeric: tabular-nums; padding: 2px 9px;
   border-radius: 6px; background: var(--chip-bg); border: none; color: var(--chip-fg);
@@ -179,6 +180,8 @@ details.adv summary { cursor: pointer; font-size: 13px; font-weight: 600; color:
 .card .k { font-size: 11px; text-transform: uppercase; letter-spacing: .1em; font-weight: 700; color: var(--ink-3); }
 .card .v { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); font-variant-numeric: tabular-nums; margin-top: 2px; }
 .card .vp { font-size: 13px; font-weight: 600; color: var(--ink-3); margin-left: 7px; letter-spacing: 0; }
+.card .v.inc { color: var(--up); }
+.card .v.dec { color: var(--down); }
 .card .d { font-size: 12px; color: var(--ink-3); }
 
 /* --- chart, table --- */
@@ -214,9 +217,10 @@ main > .toolbar h2 { font-size: 17px; color: var(--ink); text-transform: none; l
 .method { margin-top: 22px; }
 .method summary { cursor: pointer; font-weight: 700; color: var(--ink); }
 .method .inner { color: var(--ink-2); font-size: 14px; max-width: 84ch; }
-footer { margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--border); color: var(--ink-3); font-size: 12.5px; max-width: 90ch; }
-footer a { color: var(--blue-600); text-decoration: none; }
-footer a:hover { text-decoration: underline; }
+.smallprint { margin-top: 28px; color: var(--ink-3); font-size: 12.5px; line-height: 1.6; max-width: 90ch; }
+.smallprint strong { color: var(--ink-2); font-weight: 600; }
+.site-footer { border-top: 1px solid var(--border); padding: 22px 0 26px; font-size: 13px; color: var(--ink-3); }
+.site-footer .inner { max-width: 1240px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
 
 /* --- dialogs --- */
 dialog { background: var(--surface); color: var(--ink); border: 1px solid var(--border); border-radius: 16px;
@@ -256,7 +260,7 @@ dialog p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
   <h2>Constraints &amp; objectives</h2>
 
   <section class="grp">
-    <h3>Government budget <span class="chip" id="chipGov" title="Change in aggregate government contributions (currently $2,997m a year)">&mdash;</span></h3>
+    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg> Government budget <span class="chip" id="chipGov" title="Change in aggregate government contributions compared with today ($2,997m a year now)">&mdash;</span></h3>
     <div class="ctl">
       <label class="head">Government spending <span class="val" id="gVal">+0.0%</span></label>
       <input type="range" id="gPct" min="-5" max="10" step="0.5" value="0">
@@ -265,7 +269,7 @@ dialog p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
   </section>
 
   <section class="grp">
-    <h3>Universities <span class="chip" id="chipUni" title="Change in aggregate university revenue (currently $5,655m a year)">&mdash;</span></h3>
+    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg> Universities <span class="chip" id="chipUni" title="Change in aggregate university revenue compared with today ($5,655m a year now)">&mdash;</span></h3>
     <div class="ctl">
       <label class="head">Revenue rule <span class="info" tabindex="0" data-tip="Sets how much each field&rsquo;s per-student university revenue (student fee + government contribution) may change. Fixed: no field gains or loses a dollar. JRG giveback: fields whose funding rose under JRG may give back up to 5%; fields that lost may recover up to 3%. Custom bounds: the same loss/gain limits apply to every field, in % or dollars.">i</span></label>
       <div class="radio-row">
@@ -293,7 +297,7 @@ dialog p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
   </section>
 
   <section class="grp">
-    <h3>Students <span class="chip" id="chipStu" title="Change in aggregate student payments (currently $2,658m a year)">&mdash;</span></h3>
+    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg> Students <span class="chip" id="chipStu" title="Change in aggregate student payments compared with today ($2,658m a year now)">&mdash;</span></h3>
     <div class="ctl">
       <label class="head">Maximum annual fee ($)</label>
       <input type="number" id="globalCap" min="4000" max="20000" step="100" value="14900">
@@ -332,6 +336,7 @@ dialog p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
       <span><svg width="14" height="14"><circle cx="7" cy="7" r="4.5" fill="var(--current)"/></svg> Current (2026)</span>
       <span><svg width="16" height="14"><rect x="4" y="4" width="7" height="7" transform="rotate(45 7.5 7.5)" fill="none" stroke="var(--prejrg)" stroke-width="1.8"/></svg> Old (pre-JRG)</span>
       <span><svg width="14" height="14"><circle cx="7" cy="7" r="5" fill="var(--accent)"/></svg> New optimum</span>
+      <span><span style="color:var(--ink-2)">&#10022;</span> Protected field</span>
       <span style="margin-left:auto"><svg width="16" height="14"><rect x="0" y="5" width="14" height="3" rx="1.5" fill="var(--ink-3)" opacity="0.4"/></svg> Enrolments (EFTSL)</span>
     </div>
     <div class="chart-box" id="chartBox"></div>
@@ -362,18 +367,26 @@ dialog p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
     </div>
   </details>
 
-  <footer>
-    Data: 2026 indexed student and Commonwealth contribution schedules; EFTSL imputed from 2022 UAC
-    unit-record composition scaled to 2024 national Commonwealth-supported bachelor totals, as in the
-    accompanying working paper and its antecedent research (Yong, Coelli &amp; Kab&aacute;tek 2023; Senate
-    submission 2025). Amounts are annual dollars per EFTSL in 2026-equivalent terms. This is a policy
-    exploration tool, not financial or costing advice; results are reallocations under fixed enrolments,
-    not forecasts. &copy; Max Yong 2026. Version 3 (July 2026); previous versions:
-    <a href="archive/v1/">v1</a> &middot; <a href="archive/v2/">v2</a>.
-  </footer>
+  <div class="smallprint">
+    <strong>Data and assumptions.</strong> Coverage is Australia-wide: all Commonwealth-supported
+    bachelor students, about 237,000 EFTSL across 27 fields of study. Fees and subsidies are the 2026
+    indexed student and Commonwealth contribution schedules. Field-level enrolments are an imputation:
+    2022 UAC (NSW &amp; ACT) applicant composition is scaled to 2024 national Commonwealth-supported
+    bachelor totals, as in the accompanying working paper and Yong, Coelli &amp; Kab&aacute;tek (2023).
+    Amounts are annual dollars per EFTSL in 2026-equivalent terms. The optimiser holds enrolments fixed
+    (estimated demand elasticities are small), so results show who pays under a re-priced schedule, not
+    enrolment forecasts &mdash; a policy exploration tool, not financial or costing advice.
+  </div>
 </main>
 </div>
 </div>
+
+<footer class="site-footer">
+  <div class="inner">
+    <div>&copy; 2026 Max Yong</div>
+    <div>Version 2.2 (July 2026)</div>
+  </div>
+</footer>
 <div id="tooltip"></div>
 
 <dialog id="aboutDlg">
@@ -387,7 +400,7 @@ dialog p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
   no target fee schedule is baked in anywhere &mdash; you set constraints and priorities, and the
   optimiser does the rest.</p>
   <p>It accompanies a working paper by the author on constrained reform of the Job-ready Graduates fee
-  settings, and the author&rsquo;s 2025 Senate submission.</p>
+  settings.</p>
   <form method="dialog"><div class="dlg-row"><button class="dlg-btn primary">Close</button></div></form>
 </dialog>
 
@@ -943,6 +956,7 @@ const fmt$ = x => "$" + Math.round(x).toLocaleString("en-AU");
 const fmtSigned$ = x => Math.abs(x) < 0.5 ? "0" : (x > 0 ? "+" : "−") + "$" + Math.abs(Math.round(x)).toLocaleString("en-AU");
 const fmtM = x => Math.abs(x) < 0.5 ? "$0m" : (x > 0 ? "+" : "−") + "$" + Math.abs(x).toFixed(0) + "m";
 const fmtPct = x => Math.abs(x) < 0.05 ? "0%" : (x > 0 ? "+" : "−") + Math.abs(x).toFixed(1) + "%";
+const fmtK = q => { const k = q / 1000; return (k >= 10 ? Math.round(k) : k.toFixed(1)) + "k"; };
 const esc = s => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;")
   .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
@@ -1059,7 +1073,7 @@ function renderScenarios() {
   if (draft) {
     const on = active.type === "draft";
     h += `<div class="scn draft ${on ? "on" : ""}" role="button" tabindex="0" data-t="draft">
-      <span class="scn-t">Custom ${draft.num}</span><span class="scn-s">Unsaved changes</span>
+      <span class="scn-t">Custom ${draft.num}</span><span class="scn-s">Unsaved custom scenario</span>
       <button class="scn-save" data-save="1">Save&hellip;</button></div>`;
   }
   row.innerHTML = h;
@@ -1165,8 +1179,8 @@ function renderCards(m) {
   const pctT = "As a share of that field’s current fee";
   $("cards").innerHTML =
     `<div class="card"><div class="k">Max annual fee</div><div class="v">${fmt$(m.maxFee)}</div><div class="d">was ${fmt$(17397)} today</div></div>
-     <div class="card"><div class="k">Largest increase</div><div class="v">${fmtSigned$(m.maxInc)}<span class="vp" title="${pctT}">${m.maxInc > 0.5 ? fmtPct(m.maxIncPct) : ""}</span></div><div class="d">${m.nUp} fields rise</div></div>
-     <div class="card"><div class="k">Largest cut</div><div class="v">${fmtSigned$(m.maxCut)}<span class="vp" title="${pctT}">${m.maxCut < -0.5 ? fmtPct(m.maxCutPct) : ""}</span></div><div class="d">${m.nDown} fields fall, ${m.nFlat} unchanged</div></div>`;
+     <div class="card"><div class="k">Largest increase in fees</div><div class="v${m.maxInc > 0.5 ? " inc" : ""}">${fmtSigned$(m.maxInc)}<span class="vp" title="${pctT}">${m.maxInc > 0.5 ? fmtPct(m.maxIncPct) : ""}</span></div><div class="d">${m.nUp} fields rise</div></div>
+     <div class="card"><div class="k">Largest decrease in fees</div><div class="v${m.maxCut < -0.5 ? " dec" : ""}">${fmtSigned$(m.maxCut)}<span class="vp" title="${pctT}">${m.maxCut < -0.5 ? fmtPct(m.maxCutPct) : ""}</span></div><div class="d">${m.nDown} fields fall, ${m.nFlat} unchanged</div></div>`;
 }
 
 function renderChips(m) {
@@ -1174,9 +1188,9 @@ function renderChips(m) {
     ["chipGov", "chipUni", "chipStu"].forEach(id => { $(id).textContent = "—"; });
     return;
   }
-  $("chipGov").textContent = "pays " + fmtM(m.dGov);
-  $("chipUni").textContent = "receive " + fmtM(m.dRev);
-  $("chipStu").textContent = "pay " + fmtM(m.dStudent);
+  $("chipGov").textContent = "Δ " + fmtM(m.dGov) + " vs today";
+  $("chipUni").textContent = "Δ " + fmtM(m.dRev) + " vs today";
+  $("chipStu").textContent = "Δ " + fmtM(m.dStudent) + " vs today";
 }
 
 function renderChart(fields) {
@@ -1199,6 +1213,7 @@ function renderChart(fields) {
     // EFTSL bar under the label (length = enrolments)
     const bw = Math.max(1.5, f.q / MAXQ * 70);
     s += `<rect x="${mL - 8 - bw}" y="${y + 5}" width="${bw}" height="2.5" rx="1.25" fill="var(--ink-3)" opacity="0.4"/>`;
+    s += `<text x="${mL - 8 - bw - 4}" y="${y + 8.5}" text-anchor="end" font-size="8" fill="var(--faint)">${fmtK(f.q)}</text>`;
     // connector
     s += `<line x1="${x(Math.min(f.S0, f.S))}" y1="${y}" x2="${x(Math.max(f.S0, f.S))}" y2="${y}" stroke="var(--border)" stroke-width="2"/>`;
     // old pre-JRG diamond (open)
@@ -1376,6 +1391,9 @@ function init() {
   syncThemeToggle();
   active = { type: "preset", key: "A" };
   applyConfig(PRESETS.A.cfg);
+  // a Custom draft card is available from the start
+  draft = { num: customCounter, cfg: { ...PRESETS.A.cfg,
+    priorities: [...PRESETS.A.cfg.priorities], protectedIds: [...PRESETS.A.cfg.protectedIds] } };
   renderScenarios();
 }
 if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
