@@ -215,7 +215,7 @@ table.sched tr:hover td { background: var(--blue-50); }
 .tbl-box { max-height: 560px; overflow: auto; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
 .toolbar { display: flex; justify-content: space-between; align-items: center; margin: 18px 0 8px; }
 .toolbar h2 { margin: 0; font-size: 16px; }
-main > .toolbar h2, .wrap > .toolbar h2 { font-size: 17px; color: var(--ink); text-transform: none; letter-spacing: -0.01em; font-weight: 700; }
+main > .toolbar h2 { font-size: 17px; color: var(--ink); text-transform: none; letter-spacing: -0.01em; font-weight: 700; }
 .toolbar button { background: var(--surface); border: 1px solid var(--border); color: var(--blue-600); font-weight: 600;
   font-family: inherit; border-radius: 8px; padding: 7px 14px; cursor: pointer; font-size: 13.5px;
   transition: all .18s ease; }
@@ -227,20 +227,6 @@ main > .toolbar h2, .wrap > .toolbar h2 { font-size: 17px; color: var(--ink); te
 .smallprint strong { color: var(--ink-2); font-weight: 600; }
 .site-footer { border-top: 1px solid var(--border); padding: 22px 0 26px; font-size: 13px; color: var(--ink-3); }
 .site-footer .inner { max-width: 1240px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
-
-/* --- table scroll affordance, delta alignment, group icons, chart views --- */
-.tbl-wrap { position: relative; }
-.tbl-fade { position: absolute; top: 1px; bottom: 1px; width: 36px; pointer-events: none; opacity: 0; transition: opacity .15s ease; }
-.tbl-fade.right { right: 1px; border-radius: 0 var(--radius) var(--radius) 0; background: linear-gradient(to left, var(--surface) 15%, transparent); }
-.tbl-fade.left { left: 1px; border-radius: var(--radius) 0 0 var(--radius); background: linear-gradient(to right, var(--surface) 15%, transparent); }
-.tbl-wrap.can-right .tbl-fade.right, .tbl-wrap.can-left .tbl-fade.left { opacity: 1; }
-.dnum { display: inline-block; min-width: 58px; text-align: right; }
-table.sched .arrow-up, table.sched .arrow-down { display: inline-block; width: 13px; }
-.gicon { width: 12px; height: 12px; vertical-align: -1.5px; margin-right: 3px; }
-.view-toggle { display: inline-flex; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; }
-.view-toggle button { display: inline-flex; align-items: center; gap: 5px; border: none; background: var(--surface); color: var(--ink-3); font-size: 12.5px; font-weight: 600; font-family: inherit; padding: 6px 11px; cursor: pointer; transition: background .18s ease, color .18s ease; }
-.view-toggle button.on { background: var(--btn-bg); color: #fff; }
-.view-toggle .gicon { width: 13px; height: 13px; margin-right: 0; }
 
 /* --- dialogs --- */
 dialog { background: var(--surface); color: var(--ink); border: 1px solid var(--border); border-radius: 16px;
@@ -350,12 +336,7 @@ dialog p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
 
   <div class="panel">
     <div class="toolbar" style="margin-top:0">
-      <h2>Current vs optimised</h2>
-      <div class="view-toggle" id="viewToggle">
-        <button type="button" data-view="fee" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="gicon"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg> Student fee</button>
-        <button type="button" data-view="sub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="gicon"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg> Subsidy</button>
-        <button type="button" data-view="rev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="gicon"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg> Revenue</button>
-      </div>
+      <h2>Fee schedule: current vs optimised</h2>
     </div>
     <div class="legend">
       <span><svg width="14" height="14"><circle cx="7" cy="7" r="4.5" fill="var(--current)"/></svg> Current (2026)</span>
@@ -366,6 +347,12 @@ dialog p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
     </div>
     <div class="chart-box" id="chartBox"></div>
   </div>
+
+  <div class="toolbar">
+    <h2>Field-by-field results</h2>
+    <button id="csvBtn">Download CSV</button>
+  </div>
+  <div class="tbl-box"><table class="sched" id="tbl"></table></div>
 
   <details class="method panel" style="margin-top:22px">
     <summary>How the optimiser works</summary>
@@ -389,19 +376,6 @@ dialog p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
     </div>
   </details>
 
-</main>
-</div>
-
-<div class="toolbar">
-  <h2>Field-by-field results</h2>
-  <button id="csvBtn">Download CSV</button>
-</div>
-<div class="tbl-wrap">
-  <div class="tbl-box"><table class="sched" id="tbl"></table></div>
-  <div class="tbl-fade left"></div>
-  <div class="tbl-fade right"></div>
-</div>
-
   <div class="smallprint">
     <strong>Data and assumptions.</strong> Coverage is Australia-wide: all Commonwealth-supported
     bachelor students, about 237,000 EFTSL across 27 fields of study. The 27 fields are the unique
@@ -415,12 +389,14 @@ dialog p { color: var(--ink-2); font-size: 14px; line-height: 1.6; }
     (estimated demand elasticities are small), so results show who pays under a re-priced schedule, not
     enrolment forecasts &mdash; a policy exploration tool, not financial or costing advice.
   </div>
+</main>
+</div>
 </div>
 
 <footer class="site-footer">
   <div class="inner">
     <div>&copy; 2026 Max Yong</div>
-    <div>Version 2.4 (July 2026)</div>
+    <div>Version 2.3 (July 2026)</div>
   </div>
 </footer>
 <div id="tooltip"></div>
@@ -560,7 +536,7 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
  },
  {
   "id": 9,
-  "name": "Medicine / Dentistry / Vet",
+  "name": "Medicine / dentistry / vet",
   "fullName": "Medicine, Dentistry, Veterinary",
   "q": 6633.8402,
   "S0": 13558.0,
@@ -586,7 +562,7 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
  },
  {
   "id": 11,
-  "name": "Pharmacy / Allied health",
+  "name": "Pharmacy / allied health",
   "fullName": "Pharmacy, Optometry, Allied Health",
   "q": 17225.2073,
   "S0": 9537.0,
@@ -651,7 +627,7 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
  },
  {
   "id": 16,
-  "name": "Politics / Sociology",
+  "name": "Politics / sociology",
   "fullName": "Politics, Sociology, Curatorial",
   "q": 16027.0375,
   "S0": 17399.0,
@@ -677,8 +653,8 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
  },
  {
   "id": 18,
-  "name": "Psychology",
-  "fullName": "Psychology, professional pathway",
+  "name": "Psychology (professional)",
+  "fullName": "Psychology (professional pathway)",
   "q": 11145.7063,
   "S0": 9537.0,
   "G0": 15898.0,
@@ -716,7 +692,7 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
  },
  {
   "id": 21,
-  "name": "History / Philosophy / Legal",
+  "name": "History / philosophy / legal",
   "fullName": "History, Philosophy, Legal Studies",
   "q": 755.4441,
   "S0": 17399.0,
@@ -742,7 +718,7 @@ window.solver = typeof solver !== 'undefined' ? solver : window.solver;</script>
  },
  {
   "id": 23,
-  "name": "Communications / Media",
+  "name": "Communications / media",
   "fullName": "Communications, Journalism, Media",
   "q": 8305.1226,
   "S0": 17399.0,
@@ -1232,48 +1208,35 @@ function renderChips(m) {
   $("chipStu").textContent = "Δ " + fmtM(m.dStudent) + " vs today";
 }
 
-const CHART_VIEWS = {
-  fee: { label: "student contributions", cur: f => f.S0, nw: f => f.S, old: f => f.Spre },
-  sub: { label: "government subsidies", cur: f => f.G0, nw: f => f.G, old: f => Math.max(0, f.U0 / (1 + f.jrgRevPct) - f.Spre) },
-  rev: { label: "university revenue", cur: f => f.U0, nw: f => f.U, old: f => f.U0 / (1 + f.jrgRevPct) }
-};
-let chartView = "fee";
-
 function renderChart(fields) {
-  const V = CHART_VIEWS[chartView];
-  const sorted = [...fields].sort((a, b) => V.cur(b) - V.cur(a) || V.nw(b) - V.nw(a));
-  const rowH = 30, mL = 200, mR = 18, mT = 24, mB = 34;
+  const sorted = [...fields].sort((a, b) => b.S0 - a.S0 || b.S - a.S);
+  const rowH = 24, mL = 200, mR = 18, mT = 24, mB = 34;
   const W = 860, plotW = W - mL - mR;
   const H = mT + rowH * sorted.length + mB;
-  const maxVal = Math.max(...fields.map(f => Math.max(V.cur(f), V.nw(f), V.old(f))));
-  const step = [1000, 2000, 2500, 5000, 10000].find(c => maxVal / c <= 7) || 10000;
-  const xMax = Math.ceil(maxVal * 1.04 / step) * step;
+  const xMax = 18100;
   const x = v => mL + v / xMax * plotW;
-  let s = `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Dumbbell chart of current, old pre-JRG and new optimum ${V.label} by field, with enrolment bars">`;
-  // vertical gridlines + axis
-  for (let g = 0; g <= xMax; g += step) {
+  let s = `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Dumbbell chart of current, old pre-JRG and new optimum student contributions by field, with enrolment bars">`;
+  // gridlines + axis
+  for (let g = 0; g <= 18000; g += 3000) {
     s += `<line x1="${x(g)}" y1="${mT - 6}" x2="${x(g)}" y2="${H - mB + 4}" stroke="var(--grid)" stroke-width="1"/>`;
-    s += `<text x="${x(g)}" y="${H - mB + 18}" text-anchor="middle" font-size="11" fill="var(--ink-3)">$${g / 1000}k</text>`;
+    s += `<text x="${x(g)}" y="${H - mB + 18}" text-anchor="middle" font-size="11" fill="var(--ink-3)">$${(g / 1000)}k</text>`;
   }
   sorted.forEach((f, i) => {
     const y = mT + i * rowH + rowH / 2;
-    const cur = V.cur(f), nw = V.nw(f), old = V.old(f);
-    // very faint row guide
-    s += `<line x1="${mL}" x2="${W - mR}" y1="${y}" y2="${y}" stroke="var(--grid)" stroke-width="1" opacity="0.5"/>`;
     const lbl = f.name.length > 30 ? f.name.slice(0, 29) + "…" : f.name;
     s += `<text x="${mL - 8}" y="${y + 1}" text-anchor="end" font-size="11.5" fill="var(--ink-2)">${lbl}${protectedIds.has(f.id) ? " ✦" : ""}</text>`;
-    // EFTSL bar + count under the label
+    // EFTSL bar under the label (length = enrolments)
     const bw = Math.max(1.5, f.q / MAXQ * 70);
     s += `<rect x="${mL - 8 - bw}" y="${y + 8}" width="${bw}" height="2.5" rx="1.25" fill="var(--ink-3)" opacity="0.4"/>`;
     s += `<text x="${mL - 8 - bw - 4}" y="${y + 12}" text-anchor="end" font-size="8" fill="var(--faint)">${fmtK(f.q)}</text>`;
     // connector
-    s += `<line x1="${x(Math.min(cur, nw))}" y1="${y}" x2="${x(Math.max(cur, nw))}" y2="${y}" stroke="var(--border)" stroke-width="2"/>`;
+    s += `<line x1="${x(Math.min(f.S0, f.S))}" y1="${y}" x2="${x(Math.max(f.S0, f.S))}" y2="${y}" stroke="var(--border)" stroke-width="2"/>`;
     // old pre-JRG diamond (open)
-    s += `<rect x="${x(old) - 4}" y="${y - 4}" width="8" height="8" transform="rotate(45 ${x(old)} ${y})" fill="var(--surface)" stroke="var(--prejrg)" stroke-width="1.7"/>`;
+    s += `<rect x="${x(f.Spre) - 4}" y="${y - 4}" width="8" height="8" transform="rotate(45 ${x(f.Spre)} ${y})" fill="var(--surface)" stroke="var(--prejrg)" stroke-width="1.7"/>`;
     // current
-    s += `<circle cx="${x(cur)}" cy="${y}" r="4.5" fill="var(--current)" stroke="var(--surface)" stroke-width="1.5"/>`;
+    s += `<circle cx="${x(f.S0)}" cy="${y}" r="4.5" fill="var(--current)" stroke="var(--surface)" stroke-width="1.5"/>`;
     // new optimum
-    s += `<circle cx="${x(nw)}" cy="${y}" r="5" fill="var(--accent)" stroke="var(--surface)" stroke-width="1.5"/>`;
+    s += `<circle cx="${x(f.S)}" cy="${y}" r="5" fill="var(--accent)" stroke="var(--surface)" stroke-width="1.5"/>`;
     // hover band
     s += `<rect class="hband" data-id="${f.id}" x="0" y="${mT + i * rowH}" width="${W}" height="${rowH}" fill="transparent"/>`;
   });
@@ -1301,11 +1264,6 @@ function renderChart(fields) {
   });
 }
 
-const GROUP_ICONS = {
-  fee: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="gicon"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg>',
-  sub: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="gicon"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>',
-  rev: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="gicon"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>'
-};
 const GROUP_DEFS = [
   { g: "fee", label: "Student fee", cur: "S0", nw: "S", d: "dS", p: "pct" },
   { g: "sub", label: "Subsidy", cur: "G0", nw: "G", d: "dG", p: "gpct" },
@@ -1314,7 +1272,7 @@ const GROUP_DEFS = [
 const groupOpen = { fee: true, sub: true, rev: true };
 const arrow = d => d > 0.5 ? '<span class="arrow-up">▲ </span>' : d < -0.5 ? '<span class="arrow-down">▼ </span>' : "";
 const DASH = '<span class="flat">—</span>';
-const cellDelta$ = v => Math.abs(v) < 0.5 ? '<span class="dnum flat">—</span>' : arrow(v) + '<span class="dnum">' + fmtSigned$(v) + '</span>';
+const cellDelta$ = v => Math.abs(v) < 0.5 ? DASH : arrow(v) + fmtSigned$(v);
 const cellDeltaPct = (p, v) => Math.abs(v) < 0.5 ? DASH : fmtPct(p);
 
 function renderTable(fields) {
@@ -1328,7 +1286,7 @@ function renderTable(fields) {
   h += `<th rowspan="2" class="hrow2" data-k="q">EFTSL${mark("q")}</th>`;
   for (const gd of GROUP_DEFS) {
     const open = groupOpen[gd.g];
-    h += `<th class="ghead${open ? "" : " closed"}" colspan="${open ? 4 : 1}" data-g="${gd.g}" title="Click to ${open ? "hide" : "show"} these columns">${GROUP_ICONS[gd.g]}${gd.label} ${open ? "▾" : "▸"}</th>`;
+    h += `<th class="ghead${open ? "" : " closed"}" colspan="${open ? 4 : 1}" data-g="${gd.g}" title="Click to ${open ? "hide" : "show"} these columns">${gd.label} ${open ? "▾" : "▸"}</th>`;
   }
   h += "</tr><tr>";
   for (const gd of GROUP_DEFS) {
@@ -1358,14 +1316,6 @@ function renderTable(fields) {
     groupOpen[th.dataset.g] = !groupOpen[th.dataset.g];
     renderTable(lastResult.fields);
   }));
-  updateTblFade();
-}
-
-function updateTblFade() {
-  const box = document.querySelector(".tbl-box"), wrap = document.querySelector(".tbl-wrap");
-  if (!box || !wrap) return;
-  wrap.classList.toggle("can-right", box.scrollLeft + box.clientWidth < box.scrollWidth - 2);
-  wrap.classList.toggle("can-left", box.scrollLeft > 2);
 }
 
 function downloadCSV() {
@@ -1462,16 +1412,6 @@ function init() {
     const card = e.target.closest(".scn");
     if (card) { e.preventDefault(); activateScenario(card); }
   });
-  // table scroll affordance
-  document.querySelector(".tbl-box").addEventListener("scroll", updateTblFade);
-  window.addEventListener("resize", updateTblFade);
-  // chart views
-  document.querySelectorAll("#viewToggle button").forEach(b => b.addEventListener("click", () => {
-    if (b.dataset.view === chartView) return;
-    chartView = b.dataset.view;
-    document.querySelectorAll("#viewToggle button").forEach(x => x.classList.toggle("on", x === b));
-    if (lastResult && lastResult.feasible) renderChart(lastResult.fields);
-  }));
   // dialogs
   $("aboutBtn").addEventListener("click", () => $("aboutDlg").showModal());
   $("saveCancel").addEventListener("click", () => $("saveDlg").close());
