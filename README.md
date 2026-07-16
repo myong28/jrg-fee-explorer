@@ -20,11 +20,13 @@ It is a single static file. Open `index.html` in a browser, or host it anywhere
 
 ## Versioning
 
-The live page is v2 (July 2026): scenario cards with saveable custom scenarios
-(stored in the browser), grouped constraint sections with live outcome chips,
-$/% revenue bounds, a reorderable objectives list, and EFTSL bars. Superseded
-versions are kept unmodified under `archive/` (v1: `archive/v1/`). The current
-version is noted in the page footer.
+The live page is v3 (July 2026): v2's interface restyled to match the design
+system of the author's personal site (maxyong.au) — Inter, Classic Blue light /
+Midnight dark themes, shared design tokens. v2 (July 2026) introduced scenario
+cards with saveable custom scenarios (stored in the browser), grouped constraint
+sections with live outcome chips, $/% revenue bounds, a reorderable objectives
+list, and EFTSL bars. Superseded versions are kept unmodified under `archive/`
+(`archive/v1/`, `archive/v2/`). The current version is noted in the page footer.
 
 ## How it works
 
